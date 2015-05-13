@@ -203,8 +203,10 @@ namespace Tryndamere
                     }
                     if (UseR && R.IsReady() && !ObjectManager.Player.IsWindingUp)
                     {
-                        //check fury, check r.level
-                        //50, 75, 100 || 25 + (R.Level * 25)
+                       if (GetPlayerHealthPercentage() < 20)
+                    {
+                        R.Cast();
+                    }
                     }
                     if (Orbwalking.InAutoAttackRange(target) && CastItems && !ObjectManager.Player.IsWindingUp)
                     {
