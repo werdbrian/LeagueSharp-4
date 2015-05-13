@@ -182,10 +182,18 @@ namespace Tryndamere
             var UseR = Config.Item("UseRCombo").GetValue<bool>();
             var Sticks = Config.Item("Sticky").GetValue<bool>();
             var CastItems = Config.Item("UseItemCombo").GetValue<bool>();
+              if (UseR && R.IsReady())
+                    {
+                       if (GetPlayerHealthPercentage() < 20)
+                    {
+                        R.Cast();
+                    }
+                    }
             if (Sticks)
             {
                 if (target.IsValidTarget()) SetOrbwalkingToTarget(target);
             }
+          
             if (target.IsValidTarget())
             {
                 if (target.InFountain()) return;
@@ -201,13 +209,7 @@ namespace Tryndamere
                         if (target.ServerPosition.UnderTurret(true) && !Config.Item("TurretDive").GetValue<bool>()) return;
                         E.Cast(ObjectManager.Player.ServerPosition.Extend(target.ServerPosition, Vector3.Distance(ObjectManager.Player.ServerPosition, target.ServerPosition) + Config.Item("UseEComboValue").GetValue<Slider>().Value));
                     }
-                    if (UseR && R.IsReady() && !ObjectManager.Player.IsWindingUp)
-                    {
-                       if (GetPlayerHealthPercentage() < 20)
-                    {
-                        R.Cast();
-                    }
-                    }
+                    
                     if (Orbwalking.InAutoAttackRange(target) && CastItems && !ObjectManager.Player.IsWindingUp)
                     {
                         UseItems(1, target);
